@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { ImageBackground, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from "@react-navigation/native";
 function SignUpPage(): JSX.Element {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const image = require("../../Food.png");
+  const navigation = useNavigation<any>();
 
   return (
-    <View style={styles.container}>
+    <ScrollView  automaticallyAdjustKeyboardInsets={true} contentContainerStyle={{ flex: 1 }} style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <View style={styles.background}>
           <View style={styles.inputArea}>
@@ -36,21 +38,28 @@ function SignUpPage(): JSX.Element {
             />
 
           </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => (authUser(email, password))}
-            style={styles.buttonAreaView}>
-            <View style={styles.buttonArea}>
-              <Text style={{ color:'#439b3e',fontSize: 25,fontWeight:'bold' }}>Sign Up</Text>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => (authUser(email, password))}
+                           >
+            <View style={styles.loginButton}>
+              <Text style={styles.loginButtonText}>Sign Up</Text>
             </View>
-
           </TouchableOpacity>
+          <View style={styles.page}>
+            <Text>Already a member?  </Text>
+            <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("WelcomePage")}>
+              <View>
+                <Text style={{ fontSize: 15, fontWeight: "bold"}}>Login</Text>
+              </View>
+
+            </TouchableOpacity>
+          </View>
+
 
         </View>
 
       </ImageBackground>
 
-    </View>);
+    </ScrollView>);
 
 }
 
@@ -114,7 +123,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#00000000",
     borderRadius: 15,
     width: "50%",
-    padding: 20
-  }
+    padding: 10
+  },
+  page: {
+    flexDirection: "row",
+    alignSelf:'center'
+  },
+  loginButton: {
+    backgroundColor: "#439b3e",
+    padding: 20,
+    borderRadius:15,
+    width:'50%',
+    alignSelf:'center',
+    margin:20,
+  },
+  loginButtonText:{
+    textAlign:'center',
+    fontSize: 20,
+    fontWeight: "bold",
+    color:'white',
+
+  },
+
 });
 export default SignUpPage;

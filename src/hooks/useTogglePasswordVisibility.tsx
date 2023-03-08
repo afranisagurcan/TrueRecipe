@@ -6,9 +6,9 @@ export const useTogglePasswordVisibility = () => {
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
-      setRightIcon('eye-off');
+      setRightIcon('eye-with-line');
       setPasswordVisibility(!passwordVisibility);
-    } else if (rightIcon === 'eye-off') {
+    } else if (rightIcon === 'eye-with-line') {
       setRightIcon('eye');
       setPasswordVisibility(!passwordVisibility);
     }
