@@ -3,11 +3,11 @@ import { ImageBackground, Pressable, ScrollView, Text, TextInput, TouchableOpaci
 import auth from "@react-native-firebase/auth";
 import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 import { useNavigation } from "@react-navigation/native";
-import styles from "../styles/signup";
+import styles from "../styles/signin_css";
 import Icon from "react-native-vector-icons/Entypo";
 import ILogin from "../utils/types/login.type";
 
-function SignUpPage(): JSX.Element {
+function SignInPage(): JSX.Element {
 
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
   const [email, setEmail] = useState<string>("");
@@ -47,7 +47,7 @@ function SignUpPage(): JSX.Element {
 
           <TouchableOpacity activeOpacity={0.8} onPress={() => (authUser({ email, password }))}>
             <View style={styles.loginButton}>
-              <Text style={styles.loginButtonText}>Sign Up</Text>
+              <Text style={styles.loginButtonText}>Sign In</Text>
             </View>
           </TouchableOpacity>
 
@@ -88,4 +88,4 @@ const authUser = ({email, password}: ILogin.LoginKey) => {
     });
 };
 
-export default SignUpPage;
+export default SignInPage;

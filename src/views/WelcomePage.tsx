@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { Image,  ScrollView, View } from 'react-native';
 import Svg, { Circle, G,  Text,TextPath, TSpan } from 'react-native-svg';
 import LogInPage from './LogInPage';
-import styles from '../styles/welcome';
+import styles from '../styles/welcome_css';
+import { useNavigation } from "@react-navigation/native";
+import { Stack } from "../utils";
 
 function WelcomePage(): JSX.Element {
+  const navigation = useNavigation<any>();
 
   return (
     <ScrollView automaticallyAdjustKeyboardInsets={true} contentContainerStyle={{ flex: 1 }}>
@@ -14,6 +17,7 @@ function WelcomePage(): JSX.Element {
       <View style={styles.logIn}>
         <LogInPage />
       </View>
+
     </ScrollView>
  );
 

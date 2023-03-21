@@ -1,63 +1,37 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from "react";
-
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import SignUpPage from "./src/views/SignUpPage";
+import React from "react";
+import { Stack } from "./src/utils";
 import WelcomePage from "./src/views/WelcomePage";
-import UserPage from "./src/views/UserPage";
+import SignInPage from "./src/views/SignInPage";
+import TabBottom from "./src/views/TabBottom";
 
-const Stack = createNativeStackNavigator();
-
-function App(): JSX.Element {
-
+function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="WelcomePage">
-
         <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: "transparent" },
-            headerShown: false,
-            headerTransparent: true,
-            headerTitleStyle: { fontWeight: "bold" }
-          }}
           name="WelcomePage"
           component={WelcomePage}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: "transparent" },
-            headerShown: false,
-            headerTransparent: true,
-            headerTitleStyle: { fontWeight: "bold" }
-          }}
-          name="SignUpPage"
-          component={SignUpPage}
+          name="SignInPage"
+          component={SignInPage}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: "transparent" },
-            headerShown: false,
-            headerTransparent: true,
-            headerTitleStyle: { fontWeight: "bold" }
-          }}
-          name="UserPage"
-          component={UserPage}
+          name="Home"
+          component={TabBottom}
+          options={{ headerShown: false }}
         />
 
       </Stack.Navigator>
+
     </NavigationContainer>
 
-  );
 
+  );
 }
+
 
 export default App;

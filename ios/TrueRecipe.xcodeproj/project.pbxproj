@@ -13,6 +13,8 @@
 		9D10A9E3666B18357429093D /* libPods-TrueRecipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D134FB1DBEF0D102C077647B /* libPods-TrueRecipe.a */; };
 		CCC5F7F681380231E97AA357 /* libPods-TrueRecipe-TrueRecipeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A3853C924D23266F815556 /* libPods-TrueRecipe-TrueRecipeTests.a */; };
 		D62BDDB329B786F6003CE8C6 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1D829B0EDCB00614203 /* Entypo.ttf */; };
+		D642088A29C31A8B002FBBEA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D642088929C31A8B002FBBEA /* GoogleService-Info.plist */; };
+		D6E94AF429C0B4E100708FD1 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6E94AF329C0B4E100708FD1 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +44,7 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-TrueRecipe-TrueRecipeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrueRecipe-TrueRecipeTests.release.xcconfig"; path = "Target Support Files/Pods-TrueRecipe-TrueRecipeTests/Pods-TrueRecipe-TrueRecipeTests.release.xcconfig"; sourceTree = "<group>"; };
 		99A3853C924D23266F815556 /* libPods-TrueRecipe-TrueRecipeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrueRecipe-TrueRecipeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D134FB1DBEF0D102C077647B /* libPods-TrueRecipe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrueRecipe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6594E8829AF753B008ED4A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D642088929C31A8B002FBBEA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D6C2E1D529B0EDCB00614203 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		D6C2E1D629B0EDCB00614203 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		D6C2E1D729B0EDCB00614203 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		D6C2E1E229B0EDCB00614203 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		D6C2E1E329B0EDCB00614203 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		D6C2E1E429B0EDCB00614203 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		D6E94AF329C0B4E100708FD1 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = Fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -133,7 +136,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				D6594E8829AF753B008ED4A1 /* GoogleService-Info.plist */,
+				D642088929C31A8B002FBBEA /* GoogleService-Info.plist */,
+				D6E94AF329C0B4E100708FD1 /* MaterialIcons.ttf */,
 				13B07FAE1A68108700A75B9A /* TrueRecipe */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TrueRecipeTests */,
@@ -285,6 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D62BDDB329B786F6003CE8C6 /* Entypo.ttf in Resources */,
+				D642088A29C31A8B002FBBEA /* GoogleService-Info.plist in Resources */,
+				D6E94AF429C0B4E100708FD1 /* MaterialIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

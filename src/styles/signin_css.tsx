@@ -14,6 +14,8 @@ export default StyleSheet.create({
     backgroundColor: "#00000000"
   },
   inputArea: {
+    marginLeft:10,
+    marginTop:10,
     paddingLeft: 15,
     paddingRight: 15
   },
