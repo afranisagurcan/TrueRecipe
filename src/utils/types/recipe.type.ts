@@ -14,6 +14,10 @@ declare namespace IRecipe {
     iconName: string;
   }
 
+  interface Props {
+    recipes: RecipeProps[];
+  }
+
 }
 
 export default IRecipe;

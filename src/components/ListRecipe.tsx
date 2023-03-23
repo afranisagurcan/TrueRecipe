@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { FC } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import firestore from "@react-native-firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import IRecipe from "../utils/types/recipe.type";
 import { Card } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-function ListRecipe(): JSX.Element {
-  const [recipes, setRecipes] = useState<IRecipe.RecipeProps[]>([]);
+const DetailText = ({ name, item, iconName }: IRecipe.DetailProps) => {
+  return (
+    <View style={{ flexDirection: "row", margin: 5 }}>
+      <Icon name={iconName} size={18} />
+      <Text> {name}: {item} </Text>
+    </View>
+  );
+};
 
+const ListRecipe: FC<IRecipe.Props> = ( {recipes }) => {
   const navigation = useNavigation<any>();
-
-  useEffect(() => {
-    firestore().collection("recipes").get()
-      .then(collectionSnapshot => {
-        const data: any = collectionSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-        setRecipes(data);
-      });
-  }, []);
 
   const Item = ({ recipeName, time, image, rating }: IRecipe.RecipeProps) => (
 
-    <Card style={{ margin: 15 }} onPress={()=>navigation.navigate('ProfilePage')}>
+    <Card style={{ margin: 15 }} onPress={()=>navigation.navigate('DetailRecipe')}>
       <Card.Cover source={ require('../../patates.png')} />
       <Card.Content>
         <Text style={styles.header}>{recipeName}</Text>
@@ -31,8 +29,8 @@ function ListRecipe(): JSX.Element {
     </Card>
 
   );
-
   return (
+
     <View>
       <FlatList
         data={recipes}
@@ -52,17 +50,6 @@ function ListRecipe(): JSX.Element {
   );
 }
 
-
-export default ListRecipe;
-
-const DetailText = ({ name, item, iconName }: IRecipe.DetailProps) => {
-  return (
-    <View style={{ flexDirection: "row", margin: 5 }}>
-      <Icon name={iconName} size={18} />
-      <Text> {name}: {item} </Text>
-    </View>
-  );
-};
 const styles = StyleSheet.create({
   header: {
     fontWeight: "bold",
@@ -75,3 +62,5 @@ const styles = StyleSheet.create({
   }
 
 });
+
+export default ListRecipe;
