@@ -30,8 +30,8 @@ const SvgComponent = () => (
   </Svg>
 );
 
-
 function WelcomePage(): JSX.Element {
+
   const navigation = useNavigation<any>();
 
   return (

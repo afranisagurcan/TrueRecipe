@@ -12,6 +12,20 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		9D10A9E3666B18357429093D /* libPods-TrueRecipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D134FB1DBEF0D102C077647B /* libPods-TrueRecipe.a */; };
 		CCC5F7F681380231E97AA357 /* libPods-TrueRecipe-TrueRecipeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A3853C924D23266F815556 /* libPods-TrueRecipe-TrueRecipeTests.a */; };
+		D627158829CC819B002853A5 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1DA29B0EDCB00614203 /* MaterialCommunityIcons.ttf */; };
+		D627158929CC81AF002853A5 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1D529B0EDCB00614203 /* Fontisto.ttf */; };
+		D627158A29CC81B8002853A5 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1D629B0EDCB00614203 /* Octicons.ttf */; };
+		D627158B29CC81BD002853A5 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1D729B0EDCB00614203 /* Feather.ttf */; };
+		D627158C29CC81C3002853A5 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1D929B0EDCB00614203 /* FontAwesome5_Brands.ttf */; };
+		D627158D29CC81C9002853A5 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1DB29B0EDCB00614203 /* AntDesign.ttf */; };
+		D627158E29CC81D1002853A5 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1DC29B0EDCB00614203 /* Foundation.ttf */; };
+		D627158F29CC81E5002853A5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1DD29B0EDCB00614203 /* Ionicons.ttf */; };
+		D627159029CC81E5002853A5 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1DE29B0EDCB00614203 /* FontAwesome5_Solid.ttf */; };
+		D627159129CC81E5002853A5 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1DF29B0EDCB00614203 /* FontAwesome5_Regular.ttf */; };
+		D627159229CC81E5002853A5 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1E029B0EDCB00614203 /* FontAwesome.ttf */; };
+		D627159329CC81E5002853A5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1E129B0EDCB00614203 /* Zocial.ttf */; };
+		D627159429CC81E5002853A5 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1E229B0EDCB00614203 /* EvilIcons.ttf */; };
+		D627159529CC81E5002853A5 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1E329B0EDCB00614203 /* SimpleLineIcons.ttf */; };
 		D62BDDB329B786F6003CE8C6 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6C2E1D829B0EDCB00614203 /* Entypo.ttf */; };
 		D642088A29C31A8B002FBBEA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D642088929C31A8B002FBBEA /* GoogleService-Info.plist */; };
 		D6E94AF429C0B4E100708FD1 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6E94AF329C0B4E100708FD1 /* MaterialIcons.ttf */; };
@@ -288,9 +302,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D627158F29CC81E5002853A5 /* Ionicons.ttf in Resources */,
+				D627159029CC81E5002853A5 /* FontAwesome5_Solid.ttf in Resources */,
+				D627159129CC81E5002853A5 /* FontAwesome5_Regular.ttf in Resources */,
+				D627159229CC81E5002853A5 /* FontAwesome.ttf in Resources */,
+				D627159329CC81E5002853A5 /* Zocial.ttf in Resources */,
+				D627159429CC81E5002853A5 /* EvilIcons.ttf in Resources */,
+				D627159529CC81E5002853A5 /* SimpleLineIcons.ttf in Resources */,
+				D6E94AF429C0B4E100708FD1 /* MaterialIcons.ttf in Resources */,
+				D627158E29CC81D1002853A5 /* Foundation.ttf in Resources */,
+				D627158D29CC81C9002853A5 /* AntDesign.ttf in Resources */,
+				D627158C29CC81C3002853A5 /* FontAwesome5_Brands.ttf in Resources */,
+				D627158B29CC81BD002853A5 /* Feather.ttf in Resources */,
+				D627158A29CC81B8002853A5 /* Octicons.ttf in Resources */,
+				D627158929CC81AF002853A5 /* Fontisto.ttf in Resources */,
 				D62BDDB329B786F6003CE8C6 /* Entypo.ttf in Resources */,
 				D642088A29C31A8B002FBBEA /* GoogleService-Info.plist in Resources */,
-				D6E94AF429C0B4E100708FD1 /* MaterialIcons.ttf in Resources */,
+				D627158829CC819B002853A5 /* MaterialCommunityIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

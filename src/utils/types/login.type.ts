@@ -4,6 +4,7 @@ declare namespace ILogin {
     password: string;
   }
 
+
 }
 
 export default ILogin;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import IRecipe from "../utils/types/recipe.type";
 import firestore from "@react-native-firebase/firestore";
@@ -35,6 +35,9 @@ const SearchPage = () => {
           </View>
         </TouchableOpacity>
       </View>
+      {!filteredData && (
+        <Text style={styles.emptyList}>Please search a recipe</Text>
+      )}
       {filteredData && (
         <ListRecipe recipes={filteredData} />
       )}
@@ -74,7 +77,14 @@ const styles = StyleSheet.create(
       alignItems: "center",
       paddingTop: 15,
       borderRadius: 15
-    }
+    },
+    emptyList: {
+      padding: 40,
+      fontSize: 18,
+      fontWeight:'500',
+      textAlign: 'center',
+      color: 'black',
+    },
 
   }
 );

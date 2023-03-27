@@ -4,9 +4,13 @@ import SearchPage from "./SearchPage";
 import AddRecipe from "./AddRecipe";
 import FavoritesPage from "./FavoritesPage";
 import ProfilePage from "./ProfilePage";
-import React from "react";
+import React, { useState } from "react";
+import { useRoute } from "@react-navigation/native";
 
 function TabBottom(): JSX.Element {
+  const route = useRoute<any>();
+  const email = route.params.email;
+
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
@@ -33,7 +37,8 @@ function TabBottom(): JSX.Element {
         tabBarLabel: "Profile",
         tabBarIcon: ({ color, size }) =>
           (<Icon name="person" color={color} size={size} />)
-      }} name="ProfilePage" component={ProfilePage} />
+      }} name="ProfilePage" component={ProfilePage} initialParams={{ email: email }}
+      />
     </Tab.Navigator>
   );
 }

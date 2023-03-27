@@ -14,8 +14,9 @@ function LogInPage(): JSX.Element {
   const navigation = useNavigation<any>();
 
   const loginUser =  ({email, password}: ILogin.LoginKey) => {
-    auth().signInWithEmailAndPassword(email, password).then( () =>
-      navigation.navigate("Home")
+    auth().signInWithEmailAndPassword(email, password).then( (cred) => {
+      navigation.navigate("Home", {email:cred.user.email});
+    }
     ).catch(error => {
       console.error(error);
     });
@@ -59,8 +60,8 @@ function LogInPage(): JSX.Element {
 
       <View style={styles.page}>
         <Text>Don't have an account?  </Text>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("SignUpPage")}>
-          <Text style={{ fontSize: 15, fontWeight: "bold" }}>Sign Up</Text>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("SignInPage")}>
+          <Text style={{ fontSize: 15, fontWeight: "bold" }}>Sign In</Text>
         </TouchableOpacity>
       </View>
     </View>

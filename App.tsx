@@ -5,11 +5,12 @@ import WelcomePage from "./src/views/WelcomePage";
 import SignInPage from "./src/views/SignInPage";
 import TabBottom from "./src/views/TabBottom";
 import DetailRecipe from "./src/views/DetailRecipe";
+import MyRecipes from "./src/views/MyRecipes";
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="WelcomePage">
         <Stack.Screen
           name="WelcomePage"
           component={WelcomePage}
@@ -29,6 +30,9 @@ function App() {
           name={"DetailRecipe"}
           component={DetailRecipe}
         />
+        <Stack.Screen
+          name={"MyRecipes"}
+          component={MyRecipes} />
 
       </Stack.Navigator>
 

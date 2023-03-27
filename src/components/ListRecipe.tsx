@@ -29,6 +29,11 @@ const ListRecipe: FC<IRecipe.Props> = ( {recipes }) => {
     </Card>
 
   );
+
+  const EmptyListMessage = () => {
+    return <Text style={styles.emptyList}>Please search a recipe</Text>;
+  };
+
   return (
 
     <View>
@@ -45,6 +50,7 @@ const ListRecipe: FC<IRecipe.Props> = ( {recipes }) => {
           />
         }
         keyExtractor={(item, index) => "item-" + index}
+        ListEmptyComponent={EmptyListMessage}
       />
     </View>
   );
@@ -59,7 +65,14 @@ const styles = StyleSheet.create({
   detail: {
     flexDirection: "row",
     margin: 5
-  }
+  },
+  emptyList: {
+    padding: 40,
+    fontSize: 18,
+    fontWeight:'500',
+    textAlign: 'center',
+    color: 'black',
+  },
 
 });
 

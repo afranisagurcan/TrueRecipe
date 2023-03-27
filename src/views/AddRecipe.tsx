@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import firestore from "@react-native-firebase/firestore";
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput } from 'react-native-paper';
+
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 function AddRecipe(): JSX.Element {
@@ -32,35 +34,30 @@ function AddRecipe(): JSX.Element {
         <Icon name={"restaurant-menu"} size={25} color="#084149" />
         <Text style={styles.headerText}> NEW RECIPE</Text>
       </View>
-
-      <View style={styles.inputArea}>
-        <Text style={styles.inputHeader}>Recipe's Name{"\n"}</Text>
-        <TextInput style={styles.inputText} value={recipeName} onChangeText={setRecipeName} />
-      </View>
-      <View style={styles.inputArea}>
-        <Text style={styles.inputHeader}>Recipe's Description{"\n"}</Text>
-        <TextInput style={styles.inputText} value={description} onChangeText={setDescription} />
-      </View>
-
-      <View style={styles.inputArea}>
-        <Text style={styles.inputHeader}>Recipe's Ingredients{"\n"}</Text>
-        <TextInput style={styles.inputText} value={ingredients} onChangeText={setIngredients} />
-      </View>
-      <View style={styles.inputArea}>
-        <Text style={styles.inputHeader}>Recipe's Image{"\n"}</Text>
-        <TextInput style={styles.inputText} value={image} onChangeText={setImage} />
-      </View>
-
-      <View style={styles.inputArea2}>
-        <View style={{ width: "50%" }}>
-          <Text style={styles.inputHeader2}>Recipe's Rating</Text>
-          <TextInput style={styles.inputText} value={image} onChangeText={setRating} />
+      <View style={{ alignContent:'center'}}>
+        <View style={styles.inputArea}>
+          <Text style={styles.inputHeader}>Recipe's Name</Text>
+          <TextInput mode={'outlined'} activeOutlineColor={'#003c4c'} style={styles.inputText} multiline={true} value={recipeName} onChangeText={setRecipeName} />
+          <Text style={styles.inputHeader}>Recipe's Description</Text>
+          <TextInput style={styles.inputText} mode={'outlined'} activeOutlineColor={'#003c4c'} multiline={true} value={description} onChangeText={setDescription} />
+          <Text style={styles.inputHeader}>Recipe's Ingredients</Text>
+          <TextInput style={styles.inputText} mode={'outlined'} activeOutlineColor={'#003c4c'} multiline={true} value={ingredients} onChangeText={setIngredients} />
+          <Text style={styles.inputHeader}>Recipe's Image</Text>
+          <TextInput style={styles.inputText} mode={'outlined'} activeOutlineColor={'#003c4c'} multiline={true} value={image} onChangeText={setImage} />
         </View>
 
-        <View style={{ paddingLeft: 10, width: "50%" }}>
-          <Text style={styles.inputHeader2}>Recipe's Time</Text>
-          <TextInput style={styles.inputText} value={image} onChangeText={setTime} />
+        <View style={styles.inputArea2}>
+          <View style={{ width: "50%" }}>
+            <Text style={styles.inputHeader2}>Recipe's Rating</Text>
+            <TextInput style={styles.inputText} mode={'outlined'} activeOutlineColor={'#003c4c'} value={rating} onChangeText={setRating} />
+          </View>
+
+          <View style={{ paddingLeft: 10, width: "50%" }}>
+            <Text style={styles.inputHeader2}>Recipe's Time</Text>
+            <TextInput style={styles.inputText} mode={'outlined'} activeOutlineColor={'#003c4c'} value={time} onChangeText={setTime} />
+          </View>
         </View>
+
       </View>
 
       <TouchableOpacity onPress={() => addRecipe()}>
@@ -75,11 +72,13 @@ function AddRecipe(): JSX.Element {
   );
 }
 
-const styles =StyleSheet.create({
-  container:{
-    marginTop:70,
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 70
   },
   headerBox: {
+    borderColor:"#003c4c",
+    borderWidth:2,
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -92,33 +91,34 @@ const styles =StyleSheet.create({
     fontWeight: "bold",
     fontSize: 22,
     fontStyle: "italic",
-    color: "#084149"
+    color: "#003c4c"
   },
   inputArea: {
     margin: 20,
     width: "90%",
-    borderRadius: 15
   },
   inputHeader: {
-    fontSize: 20,
-    fontWeight: "bold"
+    marginTop:20,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#003c4c"
   },
   inputText: {
     backgroundColor: "#dcd8d8",
     color: "black",
-    fontSize: 20,
-    padding: 15,
-    borderRadius: 15
+    fontSize: 15,
   },
   inputArea2: {
-    margin: 20,
-    borderRadius: 15,
+    marginLeft:20,
+    marginBottom:20,
+    marginRight:20,
+    width: "90%",
     flex: 2,
     flexDirection: "row"
   },
   inputHeader2: {
-    fontSize: 20,
-    paddingBottom: 15,
+    color: "#003c4c",
+    fontSize: 15,
     fontWeight: "bold"
   },
   button: {
@@ -128,7 +128,9 @@ const styles =StyleSheet.create({
     backgroundColor: "#a0d1d7",
     borderRadius: 15,
     padding: 15,
-    alignSelf: "center"
+    alignSelf: "center",
+    borderColor:"#003c4c",
+    borderWidth:2
   },
   buttonText: {
     fontWeight: "bold",
