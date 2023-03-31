@@ -4,6 +4,10 @@ declare namespace ILogin {
     password: string;
   }
 
+  interface UserKey {
+    userId:string;
+  }
+
 
 }
 

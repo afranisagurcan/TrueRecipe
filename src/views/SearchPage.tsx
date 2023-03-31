@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import IRecipe from "../utils/types/recipe.type";
 import firestore from "@react-native-firebase/firestore";
 import ListRecipe from "../components/ListRecipe";
+import { useRoute } from "@react-navigation/native";
+import ListAllRecipes from "../components/ListAllRecipes";
 
 const SearchPage = () => {
+
   const [text, setText] = useState<string>("");
   const [filteredData, setFilteredData] = useState<IRecipe.RecipeProps[] | null>(null);
+
+  const route = useRoute<any>();
+  const userId = route.params.userId;
 
   const search = () => {
     firestore()
@@ -15,10 +21,13 @@ const SearchPage = () => {
       .where("recipeName", "==", text)
       .get()
       .then(querySnapshot => {
-        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setFilteredData(data);
       });
+
   };
+
+
   return (
 
     <View style={styles.container}>
@@ -36,10 +45,10 @@ const SearchPage = () => {
         </TouchableOpacity>
       </View>
       {!filteredData && (
-        <Text style={styles.emptyList}>Please search a recipe</Text>
+        <ListAllRecipes userId={userId}/>
       )}
       {filteredData && (
-        <ListRecipe recipes={filteredData} />
+        <ListRecipe recipes={filteredData} userId={userId} />
       )}
     </View>
 
@@ -81,10 +90,10 @@ const styles = StyleSheet.create(
     emptyList: {
       padding: 40,
       fontSize: 18,
-      fontWeight:'500',
-      textAlign: 'center',
-      color: 'black',
-    },
+      fontWeight: "500",
+      textAlign: "center",
+      color: "black"
+    }
 
   }
 );

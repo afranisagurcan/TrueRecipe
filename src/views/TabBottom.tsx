@@ -8,8 +8,10 @@ import React, { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 
 function TabBottom(): JSX.Element {
+
   const route = useRoute<any>();
-  const email = route.params.email;
+ const email = route.params.email;
+  const userId = route.params.userId;
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
@@ -19,7 +21,8 @@ function TabBottom(): JSX.Element {
           tabBarIcon: ({ color, size }) =>
             (<Icon name="search" color={color} size={size} />)
         }}
-        name="SearchPage" component={SearchPage} />
+        name="SearchPage" component={SearchPage} initialParams={{ userId: userId }} />
+
       <Tab.Screen
         options={{
           tabBarLabel: "Add Recipe",
@@ -27,12 +30,14 @@ function TabBottom(): JSX.Element {
             (<Icon name="add" color={color} size={size} />)
         }}
         name="AddRecipe" component={AddRecipe} />
+
       <Tab.Screen
         options={{
           tabBarLabel: "Favorites",
           tabBarIcon: ({ color, size }) =>
-            (<Icon name="grade" color={color} size={size} />)
-        }} name="FavoritesPage" component={FavoritesPage} />
+            (<Icon name="favorite" color={color} size={size} />)
+        }} name="FavoritesPage" component={FavoritesPage} initialParams={{ userId: userId }}  />
+
       <Tab.Screen options={{
         tabBarLabel: "Profile",
         tabBarIcon: ({ color, size }) =>

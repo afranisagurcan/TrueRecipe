@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import IRecipe from "../utils/types/recipe.type";
 import { Card } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import firestore from "@react-native-firebase/firestore";
+import ILogin from "../utils/types/login.type";
 
 const DetailText = ({ name, item, iconName }: IRecipe.ListProps) => {
   return (
@@ -14,14 +16,16 @@ const DetailText = ({ name, item, iconName }: IRecipe.ListProps) => {
   );
 };
 
-const ListRecipe = ({ recipes, userId }: IRecipe.Props) => {
+const ListAllRecipes = ({userId}:ILogin.UserKey) => {
 
   const navigation = useNavigation<any>();
+
+  const [recipes, setRecipes] = useState<IRecipe.RecipeProps[] | null>(null);
+
   const Item = ({ recipeName, time, image, rating, recipeId }: IRecipe.RecipeProps) => (
 
-    <Card style={{ margin: 15 }}
-          onPress={() => navigation.navigate("DetailRecipe", { paramKey: { recipeId }, userId:userId })}>
-      <Card.Cover source={{ uri: image }} />
+    <Card style={{ margin: 15 }} onPress={() => navigation.navigate("DetailRecipe",{paramKey: {recipeId},userId:userId})}>
+      <Card.Cover source={{uri:image}} />
       <Card.Content>
         <Text style={styles.header}>{recipeName}</Text>
         <DetailText name={"Time"} iconName={"access-time"} item={time} />
@@ -30,8 +34,18 @@ const ListRecipe = ({ recipes, userId }: IRecipe.Props) => {
     </Card>
 
   );
+  const list = () => {
+    firestore()
+      .collection("recipes")
+      .get()
+      .then(querySnapshot => {
+        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        setRecipes(data);
+      });
+  };
 
   const EmptyListMessage = () => {
+    list();
     return <Text style={styles.emptyList}>Please search a recipe</Text>;
   };
 
@@ -77,4 +91,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ListRecipe;
+export default ListAllRecipes;

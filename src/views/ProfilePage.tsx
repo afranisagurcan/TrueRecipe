@@ -9,9 +9,11 @@ function ProfilePage() {
 
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
+  const [userId,setUserId] = useState<string>("");
 
-  const navigation = useNavigation<any>();
   const route = useRoute<any>();
+  const navigation = useNavigation<any>();
+
   const email = route.params.email;
 
   const profileName = () => {
@@ -22,7 +24,8 @@ function ProfilePage() {
       .collection("users").where("email", "==", sonMail)
       .get()
       .then(querySnapshot => {
-        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data() }));
+        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), userId:doc.id }));
+        setUserId(data[0].userId);
         setName(data[0].name);
         setSurname(data[0].surname);
       });
@@ -78,7 +81,7 @@ function ProfilePage() {
         <List.Section style={{ paddingTop:50,height:'55%',width:'90%',paddingLeft:30}}>
           <List.Item titleStyle={{fontSize:22, fontWeight:'bold'}} title="Favorites"
                      left={() => <Icon size={30}  name="star" />}
-                     onPress={()=>navigation.navigate('FavoritesPage')} />
+                     onPress={()=>navigation.navigate('FavoritesPage' ,{paramKey: userId})} />
           <Divider />
           <List.Item titleStyle={{fontSize:22, fontWeight:'bold'}} title="My Recipes"
                      left={() => <Icon size={30}  name="food-variant" />}

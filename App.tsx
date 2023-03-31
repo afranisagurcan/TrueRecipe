@@ -6,6 +6,7 @@ import SignInPage from "./src/views/SignInPage";
 import TabBottom from "./src/views/TabBottom";
 import DetailRecipe from "./src/views/DetailRecipe";
 import MyRecipes from "./src/views/MyRecipes";
+import { Alert, Button } from "react-native";
 
 function App() {
   return (
@@ -29,6 +30,12 @@ function App() {
         <Stack.Screen
           name={"DetailRecipe"}
           component={DetailRecipe}
+          options={{
+            headerTitle: "",
+            headerTransparent: true,
+            headerTintColor: '#000',
+            headerTitleStyle: { fontWeight: 'bold'},
+        }}
         />
         <Stack.Screen
           name={"MyRecipes"}

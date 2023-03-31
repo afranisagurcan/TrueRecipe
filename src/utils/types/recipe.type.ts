@@ -1,5 +1,6 @@
 declare namespace IRecipe {
   interface RecipeProps {
+    recipeId:string;
     recipeName: string;
     time: string;
     description: string;
@@ -8,7 +9,7 @@ declare namespace IRecipe {
     rating: string;
   }
 
-  interface DetailProps {
+  interface ListProps {
     name: string;
     item: string;
     iconName: string;
@@ -16,6 +17,22 @@ declare namespace IRecipe {
 
   interface Props {
     recipes: RecipeProps[];
+    userId:string;
+  }
+
+  interface RecipeId {
+    recipeId:string;
+    userId:string;
+  }
+
+  interface FavoriteProps {
+    recipeName:string;
+    recipeId:string;
+    image:string;
+  }
+
+  interface FavoriteList {
+    list: FavoriteProps[];
   }
 
 }

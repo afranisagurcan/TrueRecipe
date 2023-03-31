@@ -32,7 +32,6 @@ const SvgComponent = () => (
 
 function WelcomePage(): JSX.Element {
 
-  const navigation = useNavigation<any>();
 
   return (
     <ScrollView automaticallyAdjustKeyboardInsets={true} contentContainerStyle={{ flex: 1 }}>

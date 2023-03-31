@@ -1,5 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import { Button, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Icon from 'react-native-vector-icons/Entypo';
 import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
@@ -7,6 +7,7 @@ import auth from "@react-native-firebase/auth";
 import ILogin from "../utils/types/login.type";
 
 function LogInPage(): JSX.Element {
+
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -15,7 +16,7 @@ function LogInPage(): JSX.Element {
 
   const loginUser =  ({email, password}: ILogin.LoginKey) => {
     auth().signInWithEmailAndPassword(email, password).then( (cred) => {
-      navigation.navigate("Home", {email:cred.user.email});
+      navigation.navigate("Home", {email:cred.user.email, userId:cred.user.uid});
     }
     ).catch(error => {
       console.error(error);

@@ -7,7 +7,6 @@ import { TextInput } from "react-native-paper";
 import ISignIn from "../utils/types/signin.type";
 import firestore from "@react-native-firebase/firestore";
 
-
 const ref = firestore().collection("users");
 
 function authAndStoreUser({ name, surname, email, password }: ISignIn.SignInKey) {
@@ -36,7 +35,6 @@ function authAndStoreUser({ name, surname, email, password }: ISignIn.SignInKey)
     });
 
 }
-
 
 function SignInPage(): JSX.Element {
 
@@ -69,7 +67,6 @@ function SignInPage(): JSX.Element {
                        secureTextEntry={passwordVisibility} value={password} right={<TextInput.Icon icon="eye" />}
                        onChangeText={newValue => setPassword(newValue)} />
           </View>
-
 
           <TouchableOpacity activeOpacity={0.8} onPress={() => {
             authAndStoreUser({ name, surname, email, password });
