@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import IRecipe from "../utils/types/recipe.type";
@@ -34,22 +34,24 @@ const ListAllRecipes = ({userId}:ILogin.UserKey) => {
     </Card>
 
   );
-  const list = () => {
+  useEffect(() => {
     firestore()
       .collection("recipes")
       .get()
       .then(querySnapshot => {
-        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), recipeId: doc.id }));
         setRecipes(data);
       });
-  };
+
+  },[]);
 
   const EmptyListMessage = () => {
-    list();
     return <Text style={styles.emptyList}>Please search a recipe</Text>;
   };
 
+
   return (
+
     <View>
       <FlatList
         data={recipes}
@@ -67,6 +69,7 @@ const ListAllRecipes = ({userId}:ILogin.UserKey) => {
         keyExtractor={(item, index) => "item-" + index}
         ListEmptyComponent={EmptyListMessage}
       />
+
     </View>
   );
 };

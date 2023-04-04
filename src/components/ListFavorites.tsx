@@ -22,8 +22,7 @@ function ListFavorites({ userId }: ILogin.UserKey): JSX.Element {
         setFavs(data);
       });
     }
-    , []);
-  console.log(favs);
+    , [favs]);
 
   const Item = ({ recipeId, recipeName, image }: IRecipe.FavoriteProps) => (
 
@@ -37,6 +36,9 @@ function ListFavorites({ userId }: ILogin.UserKey): JSX.Element {
 
   );
 
+  const EmptyListMessage = () => {
+    return <Text style={styles.emptyList}>There are no recipes in your favorites yet :(</Text>;
+  };
 
   return (
     <View>
@@ -48,6 +50,8 @@ function ListFavorites({ userId }: ILogin.UserKey): JSX.Element {
             recipeId={item.recipeId}
             image={item.image}
           />}
+        keyExtractor={(item, index) => "item-" + index}
+        ListEmptyComponent={EmptyListMessage}
       />
     </View>
 
@@ -60,7 +64,15 @@ const styles = StyleSheet.create(
       fontWeight: "bold",
       fontSize: 20,
       paddingTop: 10
+    },
+    emptyList: {
+      padding: 40,
+      fontSize: 20,
+      fontWeight: "500",
+      textAlign: "center",
+      color: "black"
     }
+
   }
 );
 export default ListFavorites;

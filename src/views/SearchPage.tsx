@@ -21,7 +21,7 @@ const SearchPage = () => {
       .where("recipeName", "==", text)
       .get()
       .then(querySnapshot => {
-        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), recipeId: doc.id }));
         setFilteredData(data);
       });
 
@@ -44,7 +44,7 @@ const SearchPage = () => {
           </View>
         </TouchableOpacity>
       </View>
-      {!filteredData && (
+      { (!filteredData || text =='')  && (
         <ListAllRecipes userId={userId}/>
       )}
       {filteredData && (

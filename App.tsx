@@ -37,9 +37,7 @@ function App() {
             headerTitleStyle: { fontWeight: 'bold'},
         }}
         />
-        <Stack.Screen
-          name={"MyRecipes"}
-          component={MyRecipes} />
+
 
       </Stack.Navigator>
 

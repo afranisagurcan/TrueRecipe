@@ -12,12 +12,14 @@ function FavoritesPage(): JSX.Element {
   const userId = route.params.userId;
 
   return (
-    <View >
+    <View  >
       <View style={styles.container}>
         <Text style={styles.header}>My Favorites</Text>
       </View>
-      <Divider style={{ backgroundColor: "#e00a0a", height: 5 }} />
-      <ListFavorites userId={userId} />
+      <View style={{flexDirection:'row'}}>
+        <ListFavorites userId={userId} />
+      </View>
+
     </View>
 
   );
@@ -25,14 +27,18 @@ function FavoritesPage(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
+
     flexDirection: "row",
     alignSelf: "center",
-    marginTop: 80
+    marginTop: 80,
   },
   header: {
-    fontSize: 25, fontWeight: "bold", fontStyle: "italic",
+    fontSize: 25,
+    fontWeight: "bold",
+    fontStyle: "italic",
     paddingBottom: 20,
-    color: "#e00a0a"
+    color: "#e00a0a",
+
   }
 });
 

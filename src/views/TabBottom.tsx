@@ -4,13 +4,14 @@ import SearchPage from "./SearchPage";
 import AddRecipe from "./AddRecipe";
 import FavoritesPage from "./FavoritesPage";
 import ProfilePage from "./ProfilePage";
-import React, { useState } from "react";
+import React from "react";
 import { useRoute } from "@react-navigation/native";
+import MyRecipes from "./MyRecipes";
 
 function TabBottom(): JSX.Element {
 
   const route = useRoute<any>();
- const email = route.params.email;
+  const email = route.params.email;
   const userId = route.params.userId;
 
   return (
@@ -29,14 +30,20 @@ function TabBottom(): JSX.Element {
           tabBarIcon: ({ color, size }) =>
             (<Icon name="add" color={color} size={size} />)
         }}
-        name="AddRecipe" component={AddRecipe} />
+        name="AddRecipe" component={AddRecipe} initialParams={{ userId: userId }} />
 
+      <Tab.Screen options={{
+        tabBarLabel: "My Recipes",
+        tabBarIcon: ({ color, size }) =>
+          (<Icon name="food-bank" color={color} size={size} />)
+      }} name="MyRecipes" component={MyRecipes} initialParams={{ userId: userId }} />
       <Tab.Screen
         options={{
+          headerTransparent: true,
           tabBarLabel: "Favorites",
           tabBarIcon: ({ color, size }) =>
             (<Icon name="favorite" color={color} size={size} />)
-        }} name="FavoritesPage" component={FavoritesPage} initialParams={{ userId: userId }}  />
+        }} name="FavoritesPage" component={FavoritesPage} initialParams={{ userId: userId }} />
 
       <Tab.Screen options={{
         tabBarLabel: "Profile",
@@ -44,6 +51,8 @@ function TabBottom(): JSX.Element {
           (<Icon name="person" color={color} size={size} />)
       }} name="ProfilePage" component={ProfilePage} initialParams={{ email: email }}
       />
+
+
     </Tab.Navigator>
   );
 }

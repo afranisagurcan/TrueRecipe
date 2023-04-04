@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-paper';
 
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { useRoute } from "@react-navigation/native";
 
 function AddRecipe(): JSX.Element {
 
@@ -16,6 +17,9 @@ function AddRecipe(): JSX.Element {
 
   const ref = firestore().collection("recipes");
 
+  const route = useRoute<any>();
+  const userId = route.params.userId;
+
   async function addRecipe() {
     await ref.add({
       recipeName: recipeName,
@@ -23,7 +27,8 @@ function AddRecipe(): JSX.Element {
       description: description,
       ingredients: ingredients,
       image: image,
-      rating: rating
+      rating: rating,
+      publisherId:userId,
     });
   }
 

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import firestore from "@react-native-firebase/firestore";
 import { Card, Divider } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import FavoriteStatus from "../components/FavoriteStatus";
 
 const DetailRecipe = () => {
 
@@ -18,6 +19,11 @@ const DetailRecipe = () => {
   const [ingredients, setIngredients] = useState("");
   const [image, setImage] = useState("");
   const [rating, setRating] = useState("");
+  const [publisherId, setPublisherId] = useState("");
+
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+
 
   useEffect(
     () => {
@@ -32,49 +38,42 @@ const DetailRecipe = () => {
               setIngredients(doc.data().ingredients);
               setImage(doc.data().image);
               setRating(doc.data().rating);
+              setPublisherId(doc.data().publisherId);
             }
           });
         });
-      }
+      firestore()
+        .collection("users").get().then(
+        querySnapshot => {
+          querySnapshot.forEach((doc) => {
+            if (doc.id === publisherId) {
+              setName(doc.data().name);
+              setSurname(doc.data().surname);
+            }
+
+          });
+        });
+    }
+
     , []);
-
-  const addFavorite = () => {
-    const ref = firestore().collection("favorites");
-
-    ref.add({
-      recipeId: recipeId,
-      userId: userId,
-      recipeName:recipeName,
-      image:image
-    });
-
-  };
-
 
   return (
 
-    <ScrollView style={{height:'100%'}}>
+    <ScrollView style={{ height: "100%" }}>
+
       {image != "" &&
         <Card style={styles.c3}>
           <Card.Cover source={{ uri: image }} style={styles.image} />
           <Card.Content>
             <View style={styles.text}>
-
               <View style={styles.c2}>
-                <Icon.Button onPress={() => addFavorite()}
-                             name={"favorite"}
-                             size={22}
-                             style={{ paddingLeft: 15, paddingVertical: 10 }}
-                             color={"red"}
-                             backgroundColor={"white"}>
-                </Icon.Button>
+                <FavoriteStatus recipeId={recipeId} userId={userId} recipeName={recipeName} image={image} />
               </View>
               <Card style={styles.card}>
                 <View style={{ flexDirection: "row" }}>
                   <Text style={styles.header}>{recipeName}</Text>
-
                 </View>
-
+                <Text style={styles.publisherName}>By {name} {surname}</Text>
                 <View style={styles.subheader}>
                   <Icon name={"access-alarm"} size={20} />
                   <Text style={{ fontSize: 18 }}> {time}' </Text>
@@ -122,10 +121,18 @@ const styles = StyleSheet.create({
     flex: 2
   },
   c2: {
-    alignItems: "flex-end"
+    alignSelf: "flex-end",
+    borderWidth: 3,
+    borderRadius: 15,
+    borderColor: "green"
   },
   c3: {
-    height:'80%'
+    height: "80%",
+  },
+  publisherName: {
+    fontWeight: "400",
+    fontStyle: "italic",
+    paddingVertical: 7
   },
   image: {
     height: "50%",
@@ -153,9 +160,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: "20%",
-    alignSelf: "flex-end",
-    backgroundColor: "red"
-
+    alignSelf: "flex-end"
   }
 
 });

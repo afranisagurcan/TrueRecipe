@@ -57,16 +57,6 @@ function ProfilePage() {
   };
 
 
-
-  //<List.Icon color={MD3Colors.neutral30} icon="equal" />
-  // <List.Icon color={MD3Colors.neutral30} icon="calendar" />
-  /*
-   <View style={{flexDirection:'row', padding:15}}>
-            <Icon size={40} color={'black'} name={'star'}/>
-            <Text style={{fontSize:24, paddingTop:6}}> Favorites</Text>
-    </View>
-   */
-
   return (
     <View>
       <View style={styles.container}>
@@ -85,11 +75,11 @@ function ProfilePage() {
           <Divider />
           <List.Item titleStyle={{fontSize:22, fontWeight:'bold'}} title="My Recipes"
                      left={() => <Icon size={30}  name="food-variant" />}
-                     onPress={()=>navigation.navigate('MyRecipes')}/>
+                     onPress={()=>navigation.navigate('MyRecipes',{userId:userId})}/>
           <Divider />
           <List.Item titleStyle={{fontSize:22, fontWeight:'bold'}} title="Add A New Recipe"
                      left={() => <Icon size={30}  name="plus" />}
-                     onPress={()=>navigation.navigate('AddRecipe')}/>
+                     onPress={()=>navigation.navigate('AddRecipe', {paramKey:userId})}/>
           <Divider />
           <List.Item titleStyle={{fontSize:22, fontWeight:'bold'}} title="Logout"
                      left={() => <Icon size={30}  name="logout" />}

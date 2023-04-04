@@ -20,9 +20,11 @@ declare namespace IRecipe {
     userId:string;
   }
 
-  interface RecipeId {
+  interface FavRecipe {
     recipeId:string;
     userId:string;
+    recipeName:string;
+    image:string;
   }
 
   interface FavoriteProps {
