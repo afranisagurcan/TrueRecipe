@@ -27,16 +27,23 @@ const MyRecipesPage = () => {
       .then(querySnapshot => {
         const data: any = querySnapshot.docs.map(doc => ({
           ...doc.data(),
-          id: doc.id,
+          recipeId: doc.id,
         }));
         setRecipes(data);
       });
   }, []);
 
+  console.log(userId)
+
   const Item = ({ recipeId, recipeName, image }: IRecipe.FavoriteProps) => (
-    <TouchableOpacity style={styles.recipeItem}>
+    <TouchableOpacity style={styles.recipeItem}
+                      onPress={() => navigation.navigate('DetailRecipe', {
+                        paramKey: { recipeId },
+                        userId: userId,
+                      })}>
       <Image source={{ uri: image }} style={styles.itemImage} />
       <View style={styles.itemDetails}>
+
         <Text style={[styles.itemName, { color: '#003c4c' }]}>
           {recipeName}
         </Text>

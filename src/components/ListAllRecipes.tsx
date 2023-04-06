@@ -52,10 +52,7 @@ const ListAllRecipes = ({ userId }: ILogin.UserKey) => {
 
 
   return (
-    <FlatList
-      style={{
-        flex: 1,
-      }}
+    <FlatList style={{ flex: 1, }}
       data={recipes}
       renderItem={({ item }) =>
         <Item
