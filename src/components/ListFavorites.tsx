@@ -26,7 +26,7 @@ function ListFavorites({ userId }: ILogin.UserKey): JSX.Element {
 
   const Item = ({ recipeId, recipeName, image }: IRecipe.FavoriteProps) => (
 
-    <Card style={{ margin: 15 }}
+    <Card style={{ margin:10 ,width:'45%'}}
           onPress={() => navigation.navigate("DetailRecipe", { paramKey: { recipeId }, userId: userId })}>
       <Card.Cover source={{ uri: image }} />
       <Card.Content>
@@ -51,6 +51,7 @@ function ListFavorites({ userId }: ILogin.UserKey): JSX.Element {
             image={item.image}
           />}
         keyExtractor={(item, index) => "item-" + index}
+        numColumns={2}
         ListEmptyComponent={EmptyListMessage}
       />
     </View>
@@ -62,7 +63,7 @@ const styles = StyleSheet.create(
   {
     header: {
       fontWeight: "bold",
-      fontSize: 20,
+      fontSize: 15,
       paddingTop: 10
     },
     emptyList: {

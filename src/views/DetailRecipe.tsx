@@ -1,10 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { useRoute } from "@react-navigation/native";
-import firestore from "@react-native-firebase/firestore";
-import { Card, Divider } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import FavoriteStatus from "../components/FavoriteStatus";
+import React, { FC, useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import { Card, Divider, List } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import FavoriteStatus from '../components/FavoriteStatus';
+import IGroupInput from '../utils/types/input.type';
+
+const DetailGroup: FC<IGroupInput.DetailGroupProps> = ({
+                                                         title,
+                                                         iconName,
+                                                         iconStyle,
+                                                         textStyle
+                                                       }) => {
+  return (
+    <View style={{ flexDirection: "row" }}>
+      {iconStyle ? <Icon style={iconStyle} name={iconName} size={20} /> : <Icon name={iconName} size={20} />}
+      {textStyle ? <Text style={textStyle}> {title} </Text> : <Text style={{ fontSize: 18 }}> {title} </Text>}
+    </View>
+  );
+};
 
 const DetailRecipe = () => {
 
@@ -74,35 +89,32 @@ const DetailRecipe = () => {
                   <Text style={styles.header}>{recipeName}</Text>
                 </View>
                 <Text style={styles.publisherName}>By {name} {surname}</Text>
-                <View style={styles.subheader}>
-                  <Icon name={"access-alarm"} size={20} />
-                  <Text style={{ fontSize: 18 }}> {time}' </Text>
-                  <Icon name={"star"} size={23} color={"#ffc400"} />
-                  <Text style={{ fontSize: 18 }}> {rating}</Text>
+                <View style={{ flexDirection: "row" }}>
+                  <DetailGroup title={time + "'"} iconName={"access-alarm"} />
+                  <DetailGroup title={rating} iconName={"star"} />
                 </View>
               </Card>
 
               <Card style={styles.card}>
-                <View style={styles.subheader}>
-                  <Icon name={"local-grocery-store"} style={{ padding: 3 }} size={25} />
-                  <Text style={{ fontWeight: "bold", fontSize: 25 }}> Ingredients</Text>
-                </View>
+                <DetailGroup title={" Ingredients"} iconStyle={{ padding: 3 }}
+                             textStyle={{ fontWeight: "bold", fontSize: 25 }}
+                             iconName={"local-grocery-store"} />
+
                 <Divider />
                 <Text style={{ fontWeight: "bold", padding: 10 }}>{ingredients}</Text>
               </Card>
 
               <Card style={styles.card}>
-                <View style={styles.subheader}>
-                  <Icon name={"takeout-dining"} style={{ padding: 3 }} size={25} />
-                  <Text style={{ fontWeight: "bold", fontSize: 25 }}> Description</Text>
-                </View>
+
+                <DetailGroup title={" Description"} iconStyle={{ padding: 3 }}
+                             textStyle={{ fontWeight: "bold", fontSize: 25 }}
+                             iconName={"takeout-dining"} />
+
                 <Divider />
                 <Text style={{ fontWeight: "bold", padding: 10 }}>{description}</Text>
               </Card>
 
             </View>
-
-
           </Card.Content>
 
 
@@ -154,9 +166,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontStyle: "italic",
     paddingTop: 10
-  },
-  subheader: {
-    flexDirection: "row"
   },
   icon: {
     width: "20%",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import IRecipe from "../utils/types/recipe.type";
 import { Card } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -16,7 +16,7 @@ const DetailText = ({ name, item, iconName }: IRecipe.ListProps) => {
   );
 };
 
-const ListAllRecipes = ({userId}:ILogin.UserKey) => {
+const ListAllRecipes = ({ userId }: ILogin.UserKey) => {
 
   const navigation = useNavigation<any>();
 
@@ -24,8 +24,9 @@ const ListAllRecipes = ({userId}:ILogin.UserKey) => {
 
   const Item = ({ recipeName, time, image, rating, recipeId }: IRecipe.RecipeProps) => (
 
-    <Card style={{ margin: 15 }} onPress={() => navigation.navigate("DetailRecipe",{paramKey: {recipeId},userId:userId})}>
-      <Card.Cover source={{uri:image}} />
+    <Card style={{ margin: 15 }}
+          onPress={() => navigation.navigate("DetailRecipe", { paramKey: { recipeId }, userId: userId })}>
+      <Card.Cover source={{ uri: image }} />
       <Card.Content>
         <Text style={styles.header}>{recipeName}</Text>
         <DetailText name={"Time"} iconName={"access-time"} item={time} />
@@ -43,7 +44,7 @@ const ListAllRecipes = ({userId}:ILogin.UserKey) => {
         setRecipes(data);
       });
 
-  },[]);
+  }, []);
 
   const EmptyListMessage = () => {
     return <Text style={styles.emptyList}>Please search a recipe</Text>;
@@ -51,26 +52,25 @@ const ListAllRecipes = ({userId}:ILogin.UserKey) => {
 
 
   return (
-
-    <View>
-      <FlatList
-        data={recipes}
-        renderItem={({ item }) =>
-          <Item
-            recipeName={item.recipeName}
-            time={item.time}
-            description={item.description}
-            ingredients={item.ingredients}
-            image={item.image}
-            rating={item.rating}
-            recipeId={item.recipeId}
-          />
-        }
-        keyExtractor={(item, index) => "item-" + index}
-        ListEmptyComponent={EmptyListMessage}
-      />
-
-    </View>
+    <FlatList
+      style={{
+        flex: 1,
+      }}
+      data={recipes}
+      renderItem={({ item }) =>
+        <Item
+          recipeName={item.recipeName}
+          time={item.time}
+          description={item.description}
+          ingredients={item.ingredients}
+          image={item.image}
+          rating={item.rating}
+          recipeId={item.recipeId}
+        />
+      }
+      keyExtractor={(item, index) => "item-" + index}
+      ListEmptyComponent={EmptyListMessage}
+    />
   );
 };
 

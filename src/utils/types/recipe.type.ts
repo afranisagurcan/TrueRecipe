@@ -20,7 +20,7 @@ declare namespace IRecipe {
     userId:string;
   }
 
-  interface FavRecipe {
+  interface FavRecipe_User {
     recipeId:string;
     userId:string;
     recipeName:string;
@@ -36,6 +36,7 @@ declare namespace IRecipe {
   interface FavoriteList {
     list: FavoriteProps[];
   }
+
 
 }
 

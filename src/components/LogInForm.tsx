@@ -1,12 +1,12 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { Button, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 import auth from "@react-native-firebase/auth";
 import ILogin from "../utils/types/login.type";
 
-function LogInPage(): JSX.Element {
+function LogInForm(): JSX.Element {
 
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
   const [email, setEmail] = useState<string>("");
@@ -23,13 +23,13 @@ function LogInPage(): JSX.Element {
     });
 
   };
-
   return (
     <View>
       <Text style={styles.textLogIn}>LOGIN</Text>
       <View style={styles.inputArea}>
         <Text style={styles.textHeader}>Email</Text>
         <TextInput
+          autoCorrect={false}
           style={styles.textInput}
           value={email}
           onChangeText={newValue => setEmail(newValue)}
@@ -42,7 +42,6 @@ function LogInPage(): JSX.Element {
           <TextInput
             style={styles.textInputPassword}
             autoCorrect={false}
-            textContentType="newPassword"
             secureTextEntry={passwordVisibility}
             value={password}
             onChangeText={newValue => setPassword(newValue)}
@@ -129,5 +128,5 @@ const styles = StyleSheet.create({
 
 });
 
-export default LogInPage;
+export default LogInForm;
 

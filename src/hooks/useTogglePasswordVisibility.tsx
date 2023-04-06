@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useTogglePasswordVisibility = () => {
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(true);
@@ -6,9 +6,9 @@ export const useTogglePasswordVisibility = () => {
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
-      setRightIcon('eye-with-line');
+      setRightIcon('eye-off');
       setPasswordVisibility(!passwordVisibility);
-    } else if (rightIcon === 'eye-with-line') {
+    } else if (rightIcon === 'eye-off') {
       setRightIcon('eye');
       setPasswordVisibility(!passwordVisibility);
     }
@@ -17,6 +17,6 @@ export const useTogglePasswordVisibility = () => {
   return {
     passwordVisibility,
     rightIcon,
-    handlePasswordVisibility
+    handlePasswordVisibility,
   };
 };

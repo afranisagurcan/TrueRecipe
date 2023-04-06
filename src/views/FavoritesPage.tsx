@@ -6,8 +6,6 @@ import { useRoute } from "@react-navigation/native";
 
 function FavoritesPage(): JSX.Element {
 
-  //<Icon name={'favorite'} style={{padding:3}} color={'#e00a0a'} size={21} />
-
   const route = useRoute<any>();
   const userId = route.params.userId;
 
@@ -27,7 +25,6 @@ function FavoritesPage(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-
     flexDirection: "row",
     alignSelf: "center",
     marginTop: 80,
@@ -38,7 +35,6 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     paddingBottom: 20,
     color: "#e00a0a",
-
   }
 });
 

@@ -1,12 +1,10 @@
-import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
-import { Stack } from "./src/utils";
-import WelcomePage from "./src/views/WelcomePage";
-import SignInPage from "./src/views/SignInPage";
-import TabBottom from "./src/views/TabBottom";
-import DetailRecipe from "./src/views/DetailRecipe";
-import MyRecipes from "./src/views/MyRecipes";
-import { Alert, Button } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { Stack } from './src/utils';
+import WelcomePage from './src/views/WelcomePage';
+import SignInPage from './src/views/SignInPage';
+import TabBottom from './src/views/TabBottom';
+import DetailRecipe from './src/views/DetailRecipe';
 
 function App() {
   return (
@@ -28,22 +26,17 @@ function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name={"DetailRecipe"}
+          name={'DetailRecipe'}
           component={DetailRecipe}
           options={{
-            headerTitle: "",
+            headerTitle: '',
             headerTransparent: true,
             headerTintColor: '#000',
-            headerTitleStyle: { fontWeight: 'bold'},
-        }}
+            headerTitleStyle: { fontWeight: 'bold' },
+          }}
         />
-
-
       </Stack.Navigator>
-
     </NavigationContainer>
-
-
   );
 }
 

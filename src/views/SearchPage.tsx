@@ -16,20 +16,19 @@ const SearchPage = () => {
   const userId = route.params.userId;
 
   const search = () => {
-    firestore()
+     firestore()
       .collection("recipes")
-      .where("recipeName", "==", text)
-      .get()
-      .then(querySnapshot => {
-        const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), recipeId: doc.id }));
-        setFilteredData(data);
-      });
-
+       .orderBy('recipeName')
+       .startAt(text)
+       .endAt(text + '\uf8ff')
+       .get()
+       .then(querySnapshot => {
+         const data: any = querySnapshot.docs.map((doc) => ({ ...doc.data(), recipeId: doc.id }));
+         setFilteredData(data);
+       });
   };
 
-
   return (
-
     <View style={styles.container}>
       <View style={styles.inputArea}>
         <TextInput
