@@ -71,7 +71,7 @@ const styles = StyleSheet.create(
       display: "flex",
       justifyContent: "flex-start",
       borderWidth: 2,
-      borderColor: "#f9bc00",
+      borderColor: "#F9A602",
       borderRadius: 15,
       opacity: 0.9,
       color: "black",
@@ -80,8 +80,8 @@ const styles = StyleSheet.create(
     searchArea: {
       width: "20%",
       borderWidth: 2,
-      borderColor: "#f9bc00",
-      backgroundColor: "#ffdc6c",
+      borderColor: "#F9A602",
+      backgroundColor: "#ffcb3b",
       alignItems: "center",
       paddingTop: 15,
       borderRadius: 15

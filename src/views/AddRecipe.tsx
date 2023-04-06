@@ -14,10 +14,10 @@ import {useRoute} from '@react-navigation/native';
 import IInput from '../utils/types/input.type';
 
 const InputGroup: FC<IInput.InputGroupProps> = ({
-  label,
-  contentContainerStyle,
-  ...props
-}) => {
+                                                  label,
+                                                  contentContainerStyle,
+                                                  ...props
+                                                }) => {
   return (
     <View style={contentContainerStyle}>
       {label ? <Text style={styles.inputHeader}>{label}</Text> : null}
@@ -60,13 +60,13 @@ function AddRecipe(): JSX.Element {
     <ScrollView
       automaticallyAdjustKeyboardInsets={true}
       style={styles.container}>
-      <View style={styles.headerBox}>
-        <Icon name={'restaurant-menu'} size={25} color="#084149" />
-        <Text style={styles.headerText}> NEW RECIPE</Text>
+      <View style={styles.titleContainer}>
+        <Icon name={'restaurant-menu'} size={40} color="#084149" />
+        <Text style={styles.title}>New Recipe</Text>
       </View>
 
       <View style={{alignContent: 'center'}}>
-        <View style={styles.inputArea}>
+        <View>
           <InputGroup
             contentContainerStyle={{paddingLeft: 10}}
             label="Recipe's Name"
@@ -99,7 +99,7 @@ function AddRecipe(): JSX.Element {
 
         <View style={styles.inputArea2}>
           <InputGroup
-            contentContainerStyle={{width: '50%'}}
+            contentContainerStyle={{paddingLeft: 10,width: '50%'}}
             label="Recipe's Rating"
             value={rating}
             mode={'outlined'}
@@ -129,31 +129,25 @@ function AddRecipe(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 70,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+
   },
-  headerBox: {
-    borderColor: '#003c4c',
-    borderWidth: 2,
-    display: 'flex',
+  titleContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    backgroundColor: '#a0d1d7',
-    borderRadius: 15,
-    padding: 25,
-    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop:10,
+    marginVertical: 30,
   },
-  headerText: {
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
-    fontSize: 22,
-    fontStyle: 'italic',
+    marginHorizontal: 10,
     color: '#003c4c',
   },
-  inputArea: {
-    margin: 20,
-    width: '90%',
-  },
   inputHeader: {
-    marginTop: 20,
+    marginTop: 25,
     fontSize: 15,
     fontWeight: 'bold',
     color: '#003c4c',
@@ -164,10 +158,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   inputArea2: {
-    marginLeft: 20,
     marginBottom: 20,
     marginRight: 20,
-    width: '90%',
+    width: '100%',
     flex: 2,
     flexDirection: 'row',
   },
@@ -192,4 +185,5 @@ const styles = StyleSheet.create({
 });
 
 export default AddRecipe;
+
 

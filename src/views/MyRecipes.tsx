@@ -1,11 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import IRecipe from '../utils/types/recipe.type';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
-import {Card} from 'react-native-paper';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-function MyRecipes(): JSX.Element {
+const MyRecipesPage = () => {
   const [recipes, setRecipes] = useState<IRecipe.FavoriteProps[] | []>([]);
 
   const navigation = useNavigation<any>();
@@ -26,20 +33,16 @@ function MyRecipes(): JSX.Element {
       });
   }, []);
 
-  const Item = ({recipeId, recipeName, image}: IRecipe.FavoriteProps) => (
-    <Card
-      style={{margin: 15}}
-      onPress={() =>
-        navigation.navigate('DetailRecipe', {
-          paramKey: {recipeId},
-          userId: userId,
-        })
-      }>
-      <Card.Cover source={{uri: image}} />
-      <Card.Content>
-        <Text style={styles.textHeader}>{recipeName}</Text>
-      </Card.Content>
-    </Card>
+  const Item = ({ recipeId, recipeName, image }: IRecipe.FavoriteProps) => (
+    <TouchableOpacity style={styles.recipeItem}>
+      <Image source={{ uri: image }} style={styles.itemImage} />
+      <View style={styles.itemDetails}>
+        <Text style={[styles.itemName, { color: '#003c4c' }]}>
+          {recipeName}
+        </Text>
+      </View>
+      <Icon name="chevron-right" size={30} color="#F9A602" />
+    </TouchableOpacity>
   );
 
   const EmptyListMessage = () => {
@@ -50,11 +53,14 @@ function MyRecipes(): JSX.Element {
     );
   };
 
+
   return (
-    <>
-      <View style={styles.container}>
-        <Text style={styles.header}>My Recipes</Text>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Icon name="menu-book" size={40} color="#F9A602" />
+        <Text style={styles.title}>My Recipes</Text>
       </View>
+
       <FlatList
         data={recipes}
         renderItem={({item}) => (
@@ -67,27 +73,60 @@ function MyRecipes(): JSX.Element {
         keyExtractor={(item, index) => 'item-' + index}
         ListEmptyComponent={EmptyListMessage}
       />
-    </>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+  },
+  titleContainer: {
     flexDirection: 'row',
-    alignSelf: 'center',
-    marginTop: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 40,
   },
-  textHeader: {
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
+    marginHorizontal: 10,
+    color: '#F9A602',
+  },
+  recipeItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    borderWidth: 2,
+    borderColor: '#003c4c',
+    borderRadius: 10,
+    padding: 10,
+  },
+  itemImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 10,
+    marginRight: 20,
+  },
+  itemDetails: {
+    flex: 1,
+  },
+  itemName: {
     fontSize: 20,
-    paddingTop: 10,
-  },
-  header: {
-    fontSize: 25,
     fontWeight: 'bold',
-    fontStyle: 'italic',
-    paddingBottom: 20,
-    color: '#e00a0a',
+    color: '#5BC0EB',
+  },
+  itemDescription: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 5,
+  },
+  itemTags: {
+    fontSize: 14,
+    color: '#9B9B9B',
   },
   emptyList: {
     padding: 40,
@@ -96,6 +135,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'black',
   },
+
 });
 
-export default MyRecipes;
+export default MyRecipesPage;
