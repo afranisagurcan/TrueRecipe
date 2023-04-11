@@ -118,6 +118,7 @@ function SignInPage(): JSX.Element {
             <InputGroup
               label={'Email'}
               value={email}
+              autoCapitalize='none'
               onChangeText={newValue => setEmail(newValue)}
             />
 

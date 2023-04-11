@@ -6,6 +6,8 @@ import { Card } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FavoriteStatus from '../components/FavoriteStatus';
 import IGroupInput from '../utils/types/input.type';
+import auth from '@react-native-firebase/auth';
+import IRecipe from '../utils/types/recipe.type';
 
 const DetailGroup: FC<IGroupInput.DetailGroupProps> = ({
                                                          title,
@@ -30,18 +32,12 @@ const DetailGroup: FC<IGroupInput.DetailGroupProps> = ({
 };
 
 const DetailRecipe = () => {
+
   const route = useRoute<any>();
-
   const recipeId = route.params.paramKey.recipeId;
-  const userId = route.params.userId;
 
-  const [recipeName, setRecipeName] = useState("");
-  const [time, setTime] = useState("");
-  const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [image, setImage] = useState("");
-  const [rating, setRating] = useState("");
-  const [publisherId, setPublisherId] = useState("");
+  const [user, setUser] = useState(auth().currentUser);
+  const [recipe, setRecipe] = useState<IRecipe.RecipeDetailsProps | null>(null)
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -51,59 +47,66 @@ const DetailRecipe = () => {
       .collection("recipes")
       .get()
       .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+        querySnapshot.forEach((doc) => {
           if (doc.id === recipeId) {
-            setRecipeName(doc.data().recipeName);
-            setTime(doc.data().time);
-            setDescription(doc.data().description);
-            setIngredients(doc.data().ingredients);
-            setImage(doc.data().image);
-            setRating(doc.data().rating);
-            setPublisherId(doc.data().publisherId);
-          }
-        });
-      });
-    firestore()
-      .collection("users")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          if (doc.id === publisherId) {
-            setName(doc.data().name);
-            setSurname(doc.data().surname);
+            setRecipe(doc.data() as IRecipe.RecipeDetailsProps)
           }
         });
       });
   }, []);
 
+  useEffect(() => {
+    if (recipe?.publisherId) {
+      firestore()
+        .collection("users")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            if (doc.id === recipe?.publisherId) {
+              setName(doc.data().name);
+              setSurname(doc.data().surname);
+            }
+          });
+        });
+    }
+  }, [recipe?.publisherId])
+
 
   return (
     <ScrollView>
-      {image != "" && (
+      {recipe?.image && (
         <Card>
-          <Card.Content style={{ height: "100%",marginTop:80 }}>
-              <Card.Cover source={{ uri: image }} />
+          <Card.Content style={{ height: "100%", marginTop: 80 }}>
+            <Card.Cover source={{ uri: recipe?.image }} />
 
-            <View style={styles.favButton}>
-              <FavoriteStatus recipeId={recipeId} userId={userId} recipeName={recipeName} image={image} />
-            </View>
-
-            <DetailCard title={recipeName}>
-              <Text style={styles.publisherName}>By {name} {surname}</Text>
-              <View style={{ flexDirection: "row" }}>
-                <DetailGroup title={time + "'"} iconName={"access-alarm"} />
-                <DetailGroup title={rating} iconName={"star"} />
+            {recipe?.recipeName &&
+              <View style={styles.favButton}>
+                <FavoriteStatus recipeId={recipeId} userId={user?.uid} recipeName={recipe.recipeName}
+                                image={recipe.image} />
               </View>
-            </DetailCard>
+            }
 
-            <DetailCard title="Ingredients" iconName="local-grocery-store">
-              <Text style={{ fontWeight: "bold", paddingVertical:15}}>{ingredients}</Text>
-            </DetailCard>
+            {recipe?.recipeName &&
+              <DetailCard title={recipe.recipeName}>
+                <Text style={styles.publisherName}>By {name} {surname}</Text>
+                <View style={{ flexDirection: "row" }}>
+                  {recipe.time && <DetailGroup title={recipe.time + "'"} iconName={"access-alarm"} />}
+                  {recipe.rating && <DetailGroup title={recipe.rating} iconName={"star"} />}
+                </View>
+              </DetailCard>
+            }
 
-            <DetailCard title="Description" iconName="takeout-dining">
-              <Text style={{ fontWeight: "bold", paddingVertical:15 }}>{description}</Text>
-            </DetailCard>
+            {recipe?.description &&
+              <DetailCard title="Ingredients" iconName="local-grocery-store">
+                <Text style={{ fontWeight: "bold", paddingVertical: 15 }}>{recipe.ingredients}</Text>
+              </DetailCard>
+            }
 
+            {recipe?.description &&
+              <DetailCard title="Description" iconName="takeout-dining">
+                <Text style={{ fontWeight: "bold", paddingVertical: 15 }}>{recipe.description}</Text>
+              </DetailCard>
+            }
 
           </Card.Content>
         </Card>
@@ -112,12 +115,12 @@ const DetailRecipe = () => {
   );
 };
 
-const DetailCard = ({ title, iconStyle, iconName, children }: any) => {
+const DetailCard = ({ title , iconName, children }: any) => {
   return (
     <View style={styles.card}>
       <View style={styles.headerBox}>
         {iconName && <Icon style={{ marginRight: 12 }} name={iconName} size={20} />}
-        <Text style={{ fontWeight: "600", fontSize: 20,  }}>{title}</Text>
+        <Text style={{ fontWeight: "600", fontSize: 20, }}>{title}</Text>
       </View>
       <View>
         {children}
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
   favButton: {
     alignSelf: "flex-end",
     marginTop: 10,
-    flexDirection:"row",
+    flexDirection: "row",
   },
   header: {
     textAlign: 'right',
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginVertical: 12,
     borderRadius: 6,
-    padding:20
+    padding: 20
   },
   headerBox: {
     flexDirection: "row",

@@ -9,6 +9,16 @@ declare namespace IRecipe {
     rating: string;
   }
 
+  interface RecipeDetailsProps {
+    recipeName: string;
+    time: string;
+    description: string;
+    ingredients: string;
+    image: string;
+    rating: string;
+    publisherId: string;
+  }
+
   interface ListProps {
     name: string;
     item: string;
@@ -22,7 +32,7 @@ declare namespace IRecipe {
 
   interface FavRecipe_User {
     recipeId:string;
-    userId:string;
+    userId?:string;
     recipeName:string;
     image:string;
   }

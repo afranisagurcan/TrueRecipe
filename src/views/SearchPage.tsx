@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/Entypo";
 import IRecipe from "../utils/types/recipe.type";
 import firestore from "@react-native-firebase/firestore";
 import ListRecipe from "../components/ListRecipe";
-import { useRoute } from "@react-navigation/native";
 import ListAllRecipes from "../components/ListAllRecipes";
 import auth from '@react-native-firebase/auth';
 
@@ -14,7 +13,6 @@ const SearchPage = () => {
   const [text, setText] = useState<string>("");
   const [filteredData, setFilteredData] = useState<IRecipe.RecipeProps[] | null>(null);
 
-  const route = useRoute<any>();
 
   const search = () => {
      firestore()

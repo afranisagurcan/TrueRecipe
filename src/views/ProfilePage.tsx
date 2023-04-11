@@ -29,7 +29,8 @@ const ListGroup: FC<IGroupInput.ProfileListProps> = ({
 function ProfilePage() {
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
-  const [userId, setUserId] = useState<string>("");
+
+  const [user, setUser] = useState(auth().currentUser);
 
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
@@ -53,20 +54,17 @@ function ProfilePage() {
     ]);
   };
 
-  const MyComponent = () => {
-    const mail = email.charAt(0).toUpperCase();
-    const sonMail = mail + email.substring(1);
+  const ProfileComponent = () => {
 
     firestore()
       .collection("users")
-      .where("email", "==", sonMail)
+      .where("email", "==", email)
       .get()
       .then(querySnapshot => {
         const data: any = querySnapshot.docs.map(doc => ({
           ...doc.data(),
           userId: doc.id
         }));
-        setUserId(data[0].userId);
         setName(data[0].name);
         setSurname(data[0].surname);
       });
@@ -91,17 +89,17 @@ function ProfilePage() {
           <Image style={styles.icon} source={require('../../recipeIcon.png')} />
           <Text style={styles.header}> TrueRecipe</Text>
         </View>
-        <MyComponent />
+        <ProfileComponent />
       </View>
 
       <View>
         <List.Section style={styles.list}>
           <ListGroup title={'Favorites'} iconName={'star'}
-                     onPress={() => navigation.navigate('FavoritesPage', { paramKey: userId })} />
+                     onPress={() => navigation.navigate('FavoritesPage', { paramKey: user?.uid })} />
           <ListGroup title={'My Recipes'} iconName={'food-variant'}
-                     onPress={() => navigation.navigate('MyRecipes', { userId: userId })} />
+                     onPress={() => navigation.navigate('MyRecipes', { userId: user?.uid })} />
           <ListGroup title={'Add A New Recipe'} iconName={'plus'}
-                     onPress={() => navigation.navigate('AddRecipe', { paramKey: userId })} />
+                     onPress={() => navigation.navigate('AddRecipe', { paramKey: user?.uid })} />
           <ListGroup title={'Logout'} iconName={'logout'}
                      onPress={() => logoutAlert()} />
         </List.Section>

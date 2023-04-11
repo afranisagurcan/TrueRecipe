@@ -30,6 +30,7 @@ function LogInForm(): JSX.Element {
         <Text style={styles.textHeader}>Email</Text>
         <TextInput
           autoCorrect={false}
+          autoCapitalize='none'
           style={styles.textInput}
           value={email}
           onChangeText={newValue => setEmail(newValue)}

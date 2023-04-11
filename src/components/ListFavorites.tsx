@@ -10,7 +10,6 @@ import {
   View,
 } from 'react-native';
 import IRecipe from '../utils/types/recipe.type';
-import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -53,10 +52,10 @@ function ListFavorites({ userId }: ILogin.UserKey): JSX.Element {
     </TouchableOpacity>
   );
 
-  const EmptyListMessage = () =>  {
+  const EmptyListMessage = () => {
     return (
       <Text style={styles.emptyList}>
-        There are no recipes in your favorites yet :(
+        There are no recipes in your favorites yet.
       </Text>
     );
   };
