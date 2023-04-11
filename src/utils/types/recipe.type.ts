@@ -17,7 +17,7 @@ declare namespace IRecipe {
 
   interface Props {
     recipes: RecipeProps[];
-    userId:string;
+    userId?:string;
   }
 
   interface FavRecipe_User {

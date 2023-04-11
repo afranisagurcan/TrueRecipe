@@ -5,7 +5,7 @@ declare namespace ILogin {
   }
 
   interface UserKey {
-    userId:string;
+    userId?:string;
   }
 
 

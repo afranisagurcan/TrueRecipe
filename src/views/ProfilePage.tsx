@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IGroupInput from '../utils/types/input.type';
+import auth from '@react-native-firebase/auth';
 
 const ListGroup: FC<IGroupInput.ProfileListProps> = ({
                                                        title,
@@ -43,7 +44,11 @@ function ProfilePage() {
       },
       {
         text: "YES",
-        onPress: () => navigation.navigate("WelcomePage")
+        onPress: () => {
+          auth().signOut().then(()=>{
+            navigation.navigate("WelcomePage")
+          })
+        }
       }
     ]);
   };

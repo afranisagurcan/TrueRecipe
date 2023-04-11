@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import IRecipe from "../utils/types/recipe.type";
@@ -6,14 +6,15 @@ import firestore from "@react-native-firebase/firestore";
 import ListRecipe from "../components/ListRecipe";
 import { useRoute } from "@react-navigation/native";
 import ListAllRecipes from "../components/ListAllRecipes";
+import auth from '@react-native-firebase/auth';
 
 const SearchPage = () => {
+  const [user, setUser] = useState(auth().currentUser)
 
   const [text, setText] = useState<string>("");
   const [filteredData, setFilteredData] = useState<IRecipe.RecipeProps[] | null>(null);
 
   const route = useRoute<any>();
-  const userId = route.params.userId;
 
   const search = () => {
      firestore()
@@ -30,26 +31,26 @@ const SearchPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputArea}>
-        <TextInput
-          style={styles.textInputArea}
-          value={text}
-          onChangeText={newValue => setText(newValue)}
-        />
-        <View style={{ width: "2%" }} />
-        <TouchableOpacity style={styles.searchArea} activeOpacity={0.2} onPress={() => search()}>
-          <View>
-            <Icon name={"magnifying-glass"} size={22} color="#464444" />
-          </View>
-        </TouchableOpacity>
+        <View style={styles.inputArea}>
+          <TextInput
+            style={styles.textInputArea}
+            value={text}
+            onChangeText={newValue => setText(newValue)}
+          />
+          <View style={{ width: "2%" }} />
+          <TouchableOpacity style={styles.searchArea} activeOpacity={0.2} onPress={() => search()}>
+            <View>
+              <Icon name={"magnifying-glass"} size={22} color="#464444" />
+            </View>
+          </TouchableOpacity>
+        </View>
+        { (!filteredData || text =='')  && (
+          <ListAllRecipes userId={user?.uid}/>
+        )}
+        {filteredData && (
+          <ListRecipe recipes={filteredData} userId={user?.uid} />
+        )}
       </View>
-      { (!filteredData || text =='')  && (
-        <ListAllRecipes userId={userId}/>
-      )}
-      {filteredData && (
-        <ListRecipe recipes={filteredData} userId={userId} />
-      )}
-    </View>
 
   );
 };

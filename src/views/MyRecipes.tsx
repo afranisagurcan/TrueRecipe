@@ -11,18 +11,19 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IRecipe from '../utils/types/recipe.type';
 import firestore from '@react-native-firebase/firestore';
+import auth from "@react-native-firebase/auth";
 
 const MyRecipesPage = () => {
+  const [user, setUser] = useState(auth().currentUser)
   const [recipes, setRecipes] = useState<IRecipe.FavoriteProps[] | []>([]);
 
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
-  const userId = route.params.userId;
 
   useEffect(() => {
     firestore()
       .collection('recipes')
-      .where('publisherId', '==', userId)
+      .where('publisherId', '==', user?.uid)
       .get()
       .then(querySnapshot => {
         const data: any = querySnapshot.docs.map(doc => ({
@@ -33,13 +34,11 @@ const MyRecipesPage = () => {
       });
   }, []);
 
-  console.log(userId)
-
   const Item = ({ recipeId, recipeName, image }: IRecipe.FavoriteProps) => (
     <TouchableOpacity style={styles.recipeItem}
                       onPress={() => navigation.navigate('DetailRecipe', {
                         paramKey: { recipeId },
-                        userId: userId,
+                        userId: user?.uid,
                       })}>
       <Image source={{ uri: image }} style={styles.itemImage} />
       <View style={styles.itemDetails}>

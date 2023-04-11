@@ -1,6 +1,6 @@
-import React, {FC, useState} from 'react';
+import React, { FC, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {TextInput} from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 
 import {
   ScrollView,
@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useRoute} from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import IInput from '../utils/types/input.type';
 
 const InputGroup: FC<IInput.InputGroupProps> = ({
@@ -65,32 +65,33 @@ function AddRecipe(): JSX.Element {
         <Text style={styles.title}>New Recipe</Text>
       </View>
 
-      <View style={{alignContent: 'center'}}>
+      <View style={{ alignContent: 'center' }}>
         <View>
           <InputGroup
-            contentContainerStyle={{paddingLeft: 10}}
+            contentContainerStyle={{ paddingLeft: 10 }}
             label="Recipe's Name"
             value={recipeName}
             onChangeText={setRecipeName}
-            multiline={true}
           />
 
           <InputGroup
-            contentContainerStyle={{paddingLeft: 10}}
+            contentContainerStyle={{ paddingLeft: 10 }}
             label="Recipe's Description"
             value={description}
+            multiline={true}
             onChangeText={setDescription}
           />
 
           <InputGroup
-            contentContainerStyle={{paddingLeft: 10}}
+            contentContainerStyle={{ paddingLeft: 10 }}
             label="Recipe's Ingredients"
             value={ingredients}
+            multiline={true}
             onChangeText={setIngredients}
           />
 
           <InputGroup
-            contentContainerStyle={{paddingLeft: 10}}
+            contentContainerStyle={{ paddingLeft: 10 }}
             label="Recipe's Image"
             value={image}
             onChangeText={setImage}
@@ -99,7 +100,7 @@ function AddRecipe(): JSX.Element {
 
         <View style={styles.inputArea2}>
           <InputGroup
-            contentContainerStyle={{paddingLeft: 10,width: '50%'}}
+            contentContainerStyle={{ paddingLeft: 10, width: '50%' }}
             label="Recipe's Rating"
             value={rating}
             mode={'outlined'}
@@ -107,7 +108,7 @@ function AddRecipe(): JSX.Element {
             activeOutlineColor={'#003c4c'}
           />
           <InputGroup
-            contentContainerStyle={{paddingLeft: 10, width: '50%'}}
+            contentContainerStyle={{ paddingLeft: 10, width: '50%' }}
             label="Recipe's Time"
             value={time}
             mode={'outlined'}
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop:10,
+    paddingTop: 10,
     marginVertical: 30,
   },
   title: {

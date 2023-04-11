@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
-import { Card, Divider } from 'react-native-paper';
+import { Card } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FavoriteStatus from '../components/FavoriteStatus';
 import IGroupInput from '../utils/types/input.type';
@@ -35,20 +35,20 @@ const DetailRecipe = () => {
   const recipeId = route.params.paramKey.recipeId;
   const userId = route.params.userId;
 
-  const [recipeName, setRecipeName] = useState('');
-  const [time, setTime] = useState('');
-  const [description, setDescription] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [image, setImage] = useState('');
-  const [rating, setRating] = useState('');
-  const [publisherId, setPublisherId] = useState('');
+  const [recipeName, setRecipeName] = useState("");
+  const [time, setTime] = useState("");
+  const [description, setDescription] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [image, setImage] = useState("");
+  const [rating, setRating] = useState("");
+  const [publisherId, setPublisherId] = useState("");
 
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
 
   useEffect(() => {
     firestore()
-      .collection('recipes')
+      .collection("recipes")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -64,7 +64,7 @@ const DetailRecipe = () => {
         });
       });
     firestore()
-      .collection('users')
+      .collection("users")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -76,44 +76,33 @@ const DetailRecipe = () => {
       });
   }, []);
 
+
   return (
     <ScrollView>
-      {image != '' && (
+      {image != "" && (
         <Card>
-          <Card.Cover source={{ uri: image }} />
-          <Card.Content style={{ height: '100%' }}>
+          <Card.Content style={{ height: "100%",marginTop:80 }}>
+              <Card.Cover source={{ uri: image }} />
 
             <View style={styles.favButton}>
               <FavoriteStatus recipeId={recipeId} userId={userId} recipeName={recipeName} image={image} />
             </View>
 
-            <View style={styles.area}>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={styles.header}>{recipeName}</Text>
-              </View>
+            <DetailCard title={recipeName}>
               <Text style={styles.publisherName}>By {name} {surname}</Text>
               <View style={{ flexDirection: "row" }}>
                 <DetailGroup title={time + "'"} iconName={"access-alarm"} />
                 <DetailGroup title={rating} iconName={"star"} />
               </View>
-            </View>
+            </DetailCard>
 
-            <View style={styles.area}>
-              <DetailGroup title={" Ingredients"} iconStyle={{ padding: 3 }}
-                           textStyle={{ fontWeight: "bold", fontSize: 25 }}
-                           iconName={"local-grocery-store"} />
-              <Divider />
-              <Text style={{ fontWeight: "bold", padding: 10 }}>{ingredients}</Text>
-            </View>
+            <DetailCard title="Ingredients" iconName="local-grocery-store">
+              <Text style={{ fontWeight: "bold", paddingVertical:15}}>{ingredients}</Text>
+            </DetailCard>
 
-            <View style={styles.area}>
-              <DetailGroup title={" Description"} iconStyle={{ padding: 3 }}
-                           textStyle={{ fontWeight: "bold", fontSize: 25 }}
-                           iconName={"takeout-dining"} />
-
-              <Divider />
-              <Text style={{ fontWeight: "bold", padding: 10 }}>{description}</Text>
-            </View>
+            <DetailCard title="Description" iconName="takeout-dining">
+              <Text style={{ fontWeight: "bold", paddingVertical:15 }}>{description}</Text>
+            </DetailCard>
 
 
           </Card.Content>
@@ -123,14 +112,26 @@ const DetailRecipe = () => {
   );
 };
 
+const DetailCard = ({ title, iconStyle, iconName, children }: any) => {
+  return (
+    <View style={styles.card}>
+      <View style={styles.headerBox}>
+        {iconName && <Icon style={{ marginRight: 12 }} name={iconName} size={20} />}
+        <Text style={{ fontWeight: "600", fontSize: 20,  }}>{title}</Text>
+      </View>
+      <View>
+        {children}
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
 
   favButton: {
-    alignSelf: 'flex-end',
-    borderWidth: 3,
-    borderRadius: 15,
-    borderColor: 'green',
-    marginTop: 10
+    alignSelf: "flex-end",
+    marginTop: 10,
+    flexDirection:"row",
   },
   header: {
     textAlign: 'right',
@@ -140,18 +141,39 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     paddingTop: 10,
   },
+  card: {
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 4,
+    backgroundColor: "white",
+    marginVertical: 12,
+    borderRadius: 6,
+    padding:20
+  },
+  headerBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom: 12,
+    borderBottomColor: "#cecece",
+    borderBottomWidth: 1
+  },
   area: {
     margin: 5,
     borderWidth: 1,
     borderRadius: 15,
-    borderColor: 'green',
+    borderColor: "green",
     padding: 20
   },
   publisherName: {
-    fontWeight: '400',
-    fontStyle: 'italic',
-    paddingVertical: 7,
-  },
+    fontWeight: "400",
+    fontStyle: "italic",
+    paddingVertical: 15,
+
+
+  }
 
 });
 
