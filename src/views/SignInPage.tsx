@@ -13,7 +13,6 @@ import {useNavigation} from '@react-navigation/native';
 import {TextInput} from 'react-native-paper';
 import ISignIn from '../utils/types/signin.type';
 import firestore from '@react-native-firebase/firestore';
-import * as yup from 'yup';
 import IGroupInput from '../utils/types/input.type';
 
 const ref = firestore().collection('users');
@@ -45,26 +44,6 @@ function authAndStoreUser({name, surname, email, password}: ISignIn.SignInKey) {
     });
 }
 
-const signUpValidationSchema = yup.object().shape({
-  name: yup.string().required('Full name is required'),
-  surname: yup.string(),
-  email: yup
-    .string()
-    .email('Please enter valid email')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
-    .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
-    .matches(/\d/, 'Password must have a number')
-    .matches(
-      /[!@#$%^&*()\-_"=+{}; :,<.>]/,
-      'Password must have a special character',
-    )
-    .min(8, ({min}) => `Password must be at least ${min} characters`)
-    .required('Password is required'),
-});
-
 const InputGroup: FC<IGroupInput.InputGroupProps> = ({
   label,
   contentContainerStyle,
@@ -90,10 +69,31 @@ function SignInPage(): JSX.Element {
   const [name, setName] = useState<string>('');
   const [surname, setSurname] = useState<string>('');
 
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+
   const {passwordVisibility, rightIcon, handlePasswordVisibility} =
     useTogglePasswordVisibility();
   const image = require('../../Food.png');
   const navigation = useNavigation<any>();
+
+  const handleEmailChange = () => {
+    if (email.trim() === '') {
+      setEmailError('Email is required.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handlePasswordChange = () => {
+    if (password.trim() === '') {
+      setPasswordError('Password is required.');
+    } else if (password.trim().length < 8) {
+      setPasswordError('Password must be at least 8 characters.');
+    } else {
+      setPasswordError('');
+    }
+  };
 
   return (
     <ScrollView
@@ -118,14 +118,17 @@ function SignInPage(): JSX.Element {
             <InputGroup
               label={'Email'}
               value={email}
-              autoCapitalize='none'
+              autoCapitalize="none"
               onChangeText={newValue => setEmail(newValue)}
+              onBlur={handleEmailChange}
             />
+            {emailError && <Text style={styles.error}>{emailError}</Text>}
 
             <InputGroup
               label={'Password'}
               value={password}
               onChangeText={newValue => setPassword(newValue)}
+              onBlur={handlePasswordChange}
               contentContainerStyle={styles.textInputPassword}
               secureTextEntry={passwordVisibility}
               right={
@@ -137,6 +140,8 @@ function SignInPage(): JSX.Element {
                 />
               }
             />
+            {passwordError && <Text style={styles.error}> {passwordError}</Text>}
+
           </View>
 
           <TouchableOpacity
@@ -229,6 +234,12 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
     alignSelf: 'center',
+  },
+  error: {
+    fontSize: 15,
+    color: 'red',
+    fontWeight: 'bold',
+    padding: 5,
   },
 });
 
